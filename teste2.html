@@ -1,0 +1,90 @@
+// Simulando o banco de dados
+const bancoJogos = {
+  "Melhor do GTA": {
+    cor: "#2d3436",
+    radios: ["Radio Los Santos", "Non Stop Pop", "Vinewood Boulevard Radio"]
+  },
+  "Cyberpunk Hits": {
+    cor: "#6c5ce7",
+    radios: ["Samizdat", "Body Heat Radio", "Pacific Dreams"]
+  }
+};
+
+// Função para renderizar os jogos (como botões)
+function renderizarJogos(dadosJogos) {
+  const listaGeneros = document.getElementById('lista-generos');
+  listaGeneros.innerHTML = ""; // limpar ao recarregar
+
+  for (const genero in dadosJogos) {
+    const categoria = document.createElement('div');
+    categoria.className = 'categoria';
+
+    const h2 = document.createElement('h2');
+    h2.textContent = genero;
+    categoria.appendChild(h2);
+
+    const container = document.createElement('div');
+    container.classList.add('jogos-container');
+
+    dadosJogos[genero].forEach(jogo => {
+      const divJogo = document.createElement('div');
+      divJogo.classList.add('jogo');
+      divJogo.style.cursor = 'pointer';
+
+      let titulo = jogo.title;
+      if (titulo.length > 13) {
+        titulo = titulo.slice(0, 13) + '...';
+      }
+
+      divJogo.innerHTML = `
+        <img src="${jogo.img}" alt="Capa de ${jogo.title}">
+        <p title="${jogo.title}">${titulo}</p>
+      `;
+
+      // Ao clicar no jogo
+      divJogo.addEventListener('click', () => {
+        mostrarRadiosDoJogo(jogo.title);
+      });
+
+      container.appendChild(divJogo);
+    });
+
+    categoria.appendChild(container);
+    listaGeneros.appendChild(categoria);
+  }
+}
+
+// Função que mostra as rádios e muda o tema
+function mostrarRadiosDoJogo(nomeJogo) {
+  const dados = bancoJogos[nomeJogo];
+
+  if (!dados) return alert("Jogo não encontrado no banco.");
+
+  // Mudar a cor do fundo
+  document.body.style.background = dados.cor;
+
+  // Esconder lista de jogos e mostrar rádios
+  document.getElementById('lista-generos').style.display = 'none';
+  const radiosContainer = document.getElementById('radios-container');
+  radiosContainer.style.display = 'block';
+  radiosContainer.innerHTML = `
+    <h2>${nomeJogo}</h2>
+    <ul>
+      ${dados.radios.map(r => `<li>${r}</li>`).join('')}
+    </ul>
+    <button onclick="voltar()">Voltar</button>
+  `;
+}
+
+// Voltar à lista de jogos
+function voltar() {
+  document.getElementById('radios-container').style.display = 'none';
+  document.getElementById('lista-generos').style.display = 'block';
+  document.body.style.background = "#1e1e1e"; // cor sólida inicial
+}
+
+// Chamada para renderizar a lista (mock)
+fetch('mock.json')
+  .then(res => res.json())
+  .then(data => renderizarJogos(data))
+  .catch(err => console.error("Erro ao carregar jogos:", err));

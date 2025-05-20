@@ -1,0 +1,183 @@
+.gradient-custom {
+  background: #2C2B2B;
+  background: linear-gradient(to bottom, #2C2B2B, #020202);
+
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, var(--cor-elipse), #121212);
+  font-family: 'Inter', sans-serif;
+}
+
+
+.form-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.form-input-container .form-label {
+  margin-bottom: 8px;
+}
+
+.form-input-container .form-control {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+
+.menusup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.barrapesquisa {
+  background-color: #1F1F1F;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  width: 30%;
+}
+
+.barrapesquisa:focus {
+  background-color: #1F1F1F;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  box-shadow: none;
+
+}
+
+:root {
+  --cor-elipse: #29395A;
+}
+
+.logo-elipse {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--cor-elipse);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-elipse img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.usuarioloff {
+  background-color: white;
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+}
+.usuarioloff img {
+    width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.menulateral {
+  color: white;
+  border-right: 8px solid #000000;
+  position: fixed;
+  width: 270px;
+  top: 60px;
+  background-color: #090808;
+  overflow-y: auto;
+  height: calc(100vh - 60px);
+  padding-top: 10px;
+}
+
+.orgsubmenu {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bcriar {
+  color: white;
+  background-color: #1F1F1F;
+  border: none;
+  justify-content: center;
+  border-radius: 13px;
+  padding: 5px 15px;
+}
+
+.barrnav {
+  background-color: #000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.playlist-list {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.playlist-item {
+  display: flex;
+  padding: 10px;
+}
+
+.playlist-item img {
+  width: 52px;
+  height: 52px;
+}
+
+.title {
+  margin-left: 5px;
+}
+
+.conteudopag {
+  color: white;
+  margin-top: 60px;
+  margin-left: 280px;
+}
+
+.jogos-container {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.jogo {
+  padding: 10px;
+}
+
+.jogo img{
+  width: 152px;
+  height: 152px;
+}
+
+.jogo p {
+  white-space: nowrap;        /* impede quebra de linha */
+  overflow: hidden;           /* oculta o texto que passa do limite */
+  text-overflow: ellipsis;    /* adiciona "..." no final */
+  max-width: 152px;
+  display: block;
+}
+
+.radiosContainer{
+  
+}

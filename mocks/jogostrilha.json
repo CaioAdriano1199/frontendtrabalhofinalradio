@@ -1,0 +1,33 @@
+
+  {
+  "Ação": [
+    {
+      "img": "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
+      "title": "GTA V"
+    },
+    {
+      "img": "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
+      "title": "Cyberpunk 2077"
+    }
+  ],
+  "Aventura": [
+    {
+      "img": "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
+      "title": "Red Dead Redemption"
+    },
+    {
+      "img": "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
+      "title": "Zelda: Breath of the Wild"
+    }
+  ],
+    "Terror": [
+    {
+      "img": "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
+      "title": "Resident Evil"
+    },
+    {
+      "img": "https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png",
+      "title": "Alan Wake"
+    }
+  ]
+}

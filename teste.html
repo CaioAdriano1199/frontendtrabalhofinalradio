@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gamefy 🎮</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    h2, h3 {
+      color: #1db954;
+    }
+    .jogos-row, .radios-row {
+      display: flex;
+      gap: 15px;
+      overflow-x: auto;
+    }
+    .card {
+      text-align: center;
+      cursor: pointer;
+      background-color: #222;
+      padding: 10px;
+      border-radius: 10px;
+      width: 120px;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      background-color: #333;
+    }
+    .card img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    li {
+      padding: 4px 0;
+    }
+    button {
+      margin-top: 20px;
+      padding: 8px 16px;
+      background-color: #1db954;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+    }
+    button:hover {
+      background-color: #169f48;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gamefy 🎮</h1>
+  <div id="conteudo"></div>
+
+  <script>
+    const mockGeneros = [
+      {
+        nome: "Ação",
+        jogos: [
+          {
+            id: 1,
+            nome: "GTA V",
+            imagem: "https://via.placeholder.com/100x100?text=GTA+V",
+            temRadio: true,
+            radios: [
+              {
+                nome: "Los Santos Rock Radio",
+                musicas: ["Carry On Wayward Son", "Baker Street"]
+              },
+              {
+                nome: "Vinewood Boulevard Radio",
+                musicas: ["Sleepwalking", "Nine Is God"]
+              }
+            ]
+          },
+          {
+            id: 2,
+            nome: "Max Payne",
+            imagem: "https://via.placeholder.com/100x100?text=Max+Payne",
+            temRadio: false,
+            trilhaSonora: ["Main Theme", "Inner Fear"]
+          }
+        ]
+      },
+      {
+        nome: "RPG",
+        jogos: [
+          {
+            id: 3,
+            nome: "Cyberpunk 2077",
+            imagem: "https://via.placeholder.com/100x100?text=Cyberpunk",
+            temRadio: true,
+            radios: [
+              {
+                nome: "88.3 Pacific Dreams",
+                musicas: ["Night City", "Dreams"]
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const container = document.getElementById("conteudo");
+
+    function carregarTelaInicial(generos) {
+      container.innerHTML = "";
+      generos.forEach(genero => {
+        if (genero.jogos.length === 0) return;
+
+        const secao = document.createElement("section");
+
+        const titulo = document.createElement("h2");
+        titulo.textContent = genero.nome;
+        secao.appendChild(titulo);
+
+        const listaJogos = document.createElement("div");
+        listaJogos.className = "jogos-row";
+
+        genero.jogos.forEach(jogo => {
+          const jogoDiv = document.createElement("div");
+          jogoDiv.className = "card";
+
+          const img = document.createElement("img");
+          img.src = jogo.imagem;
+          img.alt = jogo.nome;
+
+          const nome = document.createElement("p");
+          nome.textContent = jogo.nome;
+
+          jogoDiv.appendChild(img);
+          jogoDiv.appendChild(nome);
+
+          jogoDiv.onclick = () => abrirJogo(jogo);
+          listaJogos.appendChild(jogoDiv);
+        });
+
+        secao.appendChild(listaJogos);
+        container.appendChild(secao);
+      });
+    }
+
+    function abrirJogo(jogo) {
+      container.innerHTML = "";
+
+      const titulo = document.createElement("h2");
+      titulo.textContent = jogo.nome;
+      container.appendChild(titulo);
+
+      if (jogo.temRadio) {
+        const subtitulo = document.createElement("h3");
+        subtitulo.textContent = "Selecione uma rádio:";
+        container.appendChild(subtitulo);
+
+        const listaRadios = document.createElement("div");
+        listaRadios.className = "radios-row";
+
+        jogo.radios.forEach(radio => {
+          const radioDiv = document.createElement("div");
+          radioDiv.className = "card";
+          radioDiv.textContent = radio.nome;
+          radioDiv.onclick = () => abrirRadio(jogo, radio);
+          listaRadios.appendChild(radioDiv);
+        });
+
+        container.appendChild(listaRadios);
+      } else {
+        mostrarTrilhaSonora(jogo.trilhaSonora);
+      }
+
+      adicionarBotaoVoltar(() => carregarTelaInicial(mockGeneros));
+    }
+
+    function abrirRadio(jogo, radio) {
+      container.innerHTML = "";
+
+      const titulo = document.createElement("h2");
+      titulo.textContent = jogo.nome + " - " + radio.nome;
+      container.appendChild(titulo);
+
+      const listaMusicas = document.createElement("ul");
+      radio.musicas.forEach(musica => {
+        const li = document.createElement("li");
+        li.textContent = musica;
+        listaMusicas.appendChild(li);
+      });
+
+      container.appendChild(listaMusicas);
+
+      adicionarBotaoVoltar(() => abrirJogo(jogo));
+    }
+
+    function mostrarTrilhaSonora(trilhas) {
+      const trilhaTitulo = document.createElement("h3");
+      trilhaTitulo.textContent = "Trilha Sonora";
+      container.appendChild(trilhaTitulo);
+
+      const listaMusicas = document.createElement("ul");
+      trilhas.forEach(musica => {
+        const li = document.createElement("li");
+        li.textContent = musica;
+        listaMusicas.appendChild(li);
+      });
+      container.appendChild(listaMusicas);
+    }
+
+    function adicionarBotaoVoltar(callback) {
+      const btn = document.createElement("button");
+      btn.textContent = "⬅ Voltar";
+      btn.onclick = callback;
+      container.appendChild(btn);
+    }
+
+    // Inicializa
+    carregarTelaInicial(mockGeneros);
+  </script>
+</body>
+</html>
