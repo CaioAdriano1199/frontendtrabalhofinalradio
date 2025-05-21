@@ -1,0 +1,50 @@
+{
+  "Los Santos Rock Radio": [
+    {
+      "titulo": "I Don't Care Anymore",
+      "artista": "Phil Collins",
+      "dataLancamento": "1982-08-13",
+      "duracao": "05:00",
+      "capa": "https://example.com/capas/idontcareanymore.jpg"
+    },
+    {
+      "titulo": "Baker Street",
+      "artista": "Gerry Rafferty",
+      "dataLancamento": "1978-02-03",
+      "duracao": "06:11",
+      "capa": "https://example.com/capas/bakerstreet.jpg"
+    }
+  ],
+  "Radio Mirror Park": [
+    {
+      "titulo": "Sleepwalking",
+      "artista": "The Chain Gang of 1974",
+      "dataLancamento": "2013-10-01",
+      "duracao": "03:59",
+      "capa": "https://example.com/capas/sleepwalking.jpg"
+    },
+    {
+      "titulo": "Dark Matter",
+      "artista": "Feathers",
+      "dataLancamento": "2013-04-15",
+      "duracao": "04:25",
+      "capa": "https://example.com/capas/darkmatter.jpg"
+    }
+  ],
+  "Rebel Radio": [
+    {
+      "titulo": "Are You Sure Hank Done It This Way",
+      "artista": "Waylon Jennings",
+      "dataLancamento": "1975-08-18",
+      "duracao": "02:55",
+      "capa": "https://example.com/capas/hank.jpg"
+    },
+    {
+      "titulo": "Highwayman",
+      "artista": "The Highwaymen",
+      "dataLancamento": "1985-05-01",
+      "duracao": "03:03",
+      "capa": "https://example.com/capas/highwayman.jpg"
+    }
+  ]
+}
