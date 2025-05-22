@@ -116,36 +116,67 @@ function renderizarJogos(dadosJogos) {
   }
 }
 
-// Função para mostrar as rádios de um jogo
+//mostrar as rádios de um jogo
 function mostrarRadiosDoJogo(tituloJogo) {
-  // Carregar as rádios do jogo selecionado
-  fetch('mocks/radiosdosjogos.json')
-    .then(res => res.json())
-    .then(dadosRadios => {
-      const radios = dadosRadios[tituloJogo];
+  window.nomeJogoAtual = tituloJogo;
+  Promise.all([
+    fetch('mocks/jogostrilha.json').then(res => res.json()),
+    fetch('mocks/radiosdosjogos.json').then(res => res.json())
+  ])
+    .then(([dadosJogos, dadosRadios]) => {
 
-      if (!radios) {
+      let jogoEncontrado = null;
+      for (const genero in dadosJogos) {
+        const jogo = dadosJogos[genero].find(j => j.title === tituloJogo);
+        if (jogo) {
+          jogoEncontrado = jogo;
+          break;
+        }
+      }
+
+      if (!jogoEncontrado) {
+        alert("Informações do jogo não encontradas.");
+        return;
+      }
+
+      // Buscar rádios com verificação flexível
+      let radios = null;
+      for (const nomeJogo in dadosRadios) {
+        if (nomeJogo.toLowerCase().trim() === tituloJogo.toLowerCase().trim()) {
+          radios = dadosRadios[nomeJogo];
+          break;
+        }
+      }
+
+      if (!radios || radios.length === 0) {
         alert("Nenhuma rádio encontrada para esse jogo.");
         return;
       }
 
-      // Ocultar a lista de jogos
       document.getElementById("lista-generos").style.display = "none";
-
-      // Mostrar container com rádios
       const radiosContainer = document.getElementById("radios-container");
       radiosContainer.style.display = "block";
+
       radiosContainer.innerHTML = `
-        <h2>Rádios de ${tituloJogo}</h2>
-        <ul>
-          ${radios.map(r => `<li>${r}</li>`).join("")}
+        <div class="jogo-info">
+          <img src="${jogoEncontrado.img}" alt="${tituloJogo}" class="jogo-imagem">
+          <h2>${tituloJogo}</h2>
+          </div>
+          <p class="tabelainforadio">Estações de rádio</p>
+        <ul class="lista-radios">
+          ${radios.map(r => `
+            <li class="radio-item" onclick="buscarMusicasDaRadio('${r.nome}')">
+              <img src="${r.logo}" alt="${r.nome}" class="logo-radio">
+              <span>${r.nome}</span>
+            </li>
+          `).join("")}
         </ul>
-        <button onclick="voltar()">Voltar</button>
+        <button onclick="voltar()" class="btn-voltar">Voltar</button>
       `;
     })
     .catch(err => {
-      console.error('Erro ao carregar rádios:', err);
-      alert("Ocorreu um erro ao carregar as rádios.");
+      console.error("Erro ao carregar dados:", err);
+      alert("Ocorreu um erro ao carregar as informações.");
     });
 }
 
@@ -153,4 +184,39 @@ function mostrarRadiosDoJogo(tituloJogo) {
 function voltar() {
   document.getElementById("radios-container").style.display = "none";
   document.getElementById("lista-generos").style.display = "block";
+}
+
+function buscarMusicasDaRadio(nomeRadio) {
+  fetch('mocks/musicasdasradios.json')
+    .then(res => res.json())
+    .then(dadosMusicas => {
+      const musicas = dadosMusicas[nomeRadio];
+
+      if (!musicas || musicas.length === 0) {
+        alert("Nenhuma música encontrada para essa rádio.");
+        return;
+      }
+
+      const radiosContainer = document.getElementById("radios-container");
+      radiosContainer.innerHTML = `
+        <h3>Músicas da rádio: ${nomeRadio}</h3>
+        <ul class="lista-musicas">
+  ${musicas.map(m => `
+    <li class="musica-item">
+      <img src="${m.capa}" alt="Capa de ${m.titulo}" class="capa-musica">
+      <div>
+        <strong>${m.titulo}</strong> — ${m.artista}<br>
+        <small>Lançamento: ${m.dataLancamento} | Duração: ${m.duracao}</small>
+      </div>
+    </li>
+  `).join("")}
+</ul>
+
+        <button onclick="mostrarRadiosDoJogo('${nomeJogoAtual}')" class="btn-voltar">Voltar às rádios</button>
+      `;
+    })
+    .catch(err => {
+      console.error("Erro ao carregar músicas:", err);
+      alert("Ocorreu um erro ao buscar as músicas da rádio.");
+    });
 }

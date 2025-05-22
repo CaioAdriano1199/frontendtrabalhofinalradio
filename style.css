@@ -150,7 +150,8 @@ body {
 .conteudopag {
   color: white;
   margin-top: 60px;
-  margin-left: 280px;
+  margin-left: 290px;
+  width: 55%;
 }
 
 .jogos-container {
@@ -178,6 +179,71 @@ body {
   display: block;
 }
 
-.radiosContainer{
-  
+
+
+.jogo-info {
+  margin-top: 10%;
+  display: flex;
+  align-items: center;
 }
+
+.jogo-info h2 {
+  margin-left: 5%;
+  color: #ffffff;
+}
+
+.jogo-imagem {
+  width: 254px;
+  height: 254px;
+
+}
+
+.lista-radios {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  align-content: space-around;
+}
+
+.radio-item:hover {
+  background-color: #1f1f1f65;
+}
+
+.logo-radio {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  margin-right: 3%;
+}
+
+.tabelainforadio{
+  border-bottom: solid white;
+  width: 100%;
+  margin-top: 10%;
+}
+
+.btn-voltar {
+  margin-top: 30px;
+  padding: 12px 24px;
+  background-color: #00ffcc;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-voltar:hover {
+  background-color: #00ccaa;
+}
+

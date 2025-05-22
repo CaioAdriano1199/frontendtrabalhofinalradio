@@ -1,28 +1,22 @@
 {
-    "GTA V": [
-        "Radio Los Santos",
-        "Non Stop Pop",
-        "Channel X"
-    ],
-    "Cyberpunk 2077": [
-        "Body Heat Radio",
-        "Samizdat",
-        "The Dirge"
-    ],
-    "Red Dead Redemption": [
-        "Classic Western",
-        "Bluegrass Roots"
-    ],
-    "Zelda: Breath of the Wild": [
-        "Nature Ambience",
-        "Temple Radio"
-    ],
-    "Resident Evil": [
-        "Zombie FM",
-        "Raccoon City Emergency"
-    ],
-    "Alan Wake": [
-        "Night Falls Radio",
-        "Poets of the Fall"
-    ]
+  "GTA V": [
+    {
+      "nome": "Los Santos Rock Radio",
+      "logo": "radioslogo/LosSantosRockRadio-GTAV-Logo.webp"
+    },
+    {
+      "nome": "Radio Mirror Park",
+      "logo": "radioslogo/RadioMirrorPark-GTAV-Logo.webp"
+    },
+    {
+      "nome": "Rebel Radio",
+      "logo": "radioslogo/RebelRadio-GTAV-Logo.webp"
+    }
+  ],
+  "Cyberpunk 2077": [
+    {
+      "nome": "Radio Vexelstrom",
+      "logo": "radioslogo/89.3_Radio_Vexelstrom.webp"
+    }
+  ]
 }
