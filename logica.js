@@ -8,6 +8,23 @@ function mudarCorElipse(corHex) {
 //playlist
 
 const container = document.getElementById("playlistList");
+const btnNova = document.getElementById("btnNovaPlaylist");
+const modal = document.getElementById("modalNovaPlaylist");
+const inputNome = document.getElementById("inputNomePlaylist");
+const btnConfirmar = document.getElementById("btnConfirmarPlaylist");
+
+function adicionarPlaylistNaTela(pl) {
+  const item = document.createElement("div");
+  item.classList.add("playlist-item");
+
+  item.innerHTML = `
+    <img src="${pl.img}" alt="${pl.title}">
+    <div class="title">${pl.title}</div>
+  `;
+  item.style.cursor = "pointer";
+  item.onclick = () => mostrarMusicasDaPlaylist(pl);
+  container.appendChild(item);
+}
 
 fetch("mocks/playlists.json")
   .then(response => {
@@ -18,20 +35,113 @@ fetch("mocks/playlists.json")
   })
   .then(playlists => {
     playlists.forEach(pl => {
-      const item = document.createElement("div");
-      item.classList.add("playlist-item");
-
-      item.innerHTML = `
-        <img src="${pl.img}" alt="${pl.title}">
-        <div class="title">${pl.title}</div>
-      `;
-
-      container.appendChild(item);
+      adicionarPlaylistNaTela(pl);
     });
   })
   .catch(error => {
     console.error("Erro ao buscar as playlists:", error);
   });
+
+// Evento para abrir o modal
+btnNova.addEventListener("click", () => {
+  modal.style.display = "flex";
+  inputNome.value = "";
+  inputNome.focus();
+});
+
+// Evento para confirmar e adicionar a nova playlist
+btnConfirmar.addEventListener("click", () => {
+  const nome = inputNome.value.trim();
+  if (nome !== "") {
+    adicionarPlaylistNaTela({
+      img: "https://via.placeholder.com/150", // imagem padrão
+      title: nome
+    });
+    modal.style.display = "none";
+  }
+});
+
+modal.addEventListener("click", (event) => {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+function mostrarMusicasDaPlaylist(pl) {
+  fetch("mocks/musicasdaplaylist.json")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Erro ao buscar músicas");
+      }
+      return response.json();
+    })
+    .then(dados => {
+      const titulo = pl.title;
+      const logo = pl.img;
+      const musicas = dados[titulo] || [];
+
+      const container = document.getElementById("musicasDaPlaylist");
+
+      container.innerHTML = `
+        <div class="jogo-info">
+          <img src="${logo}" alt="Logo da ${titulo}" class="jogo-imagem">
+          <h2>${titulo}</h2>
+        </div>
+        <button class="botaoplay"><img src="botaoplay.png" alt="Play"></button>
+        <div style="display:flex">
+          <p class="infodomenumusica">Título</p>
+          <p class="infodomenumusica2">Lançamento</p>
+          <p class="infodomenumusica3">Duração</p>
+        </div>
+        <ul class="lista-radios">
+          ${musicas.map(m => `
+  <li>
+    <div class="musicaplaylist">
+      <div class="infomusicaecapa">
+        <img src="${m.capa}" alt="Capa de ${m.titulo}" class="logo-radio">
+        <div class="infodamusica">
+          <p>${m.titulo}</p> 
+          <small>${m.artista}</small>
+        </div>
+      </div>
+      <small class="datalmusica">${m.dataLancamento}</small>
+      <div class="duraebot">
+        <small class="duracaomusica">${m.duracao}</small>
+        <button><h3>...</h3></button>
+      </div>
+    </div>
+  </li>
+`).join("")
+        }
+        </ul>
+
+        <button onclick="voltar()" class="btn-voltar">Voltar</button>
+      `;
+
+      // Oculta outras seções
+      document.getElementById("radios-container").style.display = "none";
+      document.getElementById("lista-generos").style.display = "none";
+
+      container.style.display = "block";
+    })
+    .catch(error => {
+      console.error("Erro ao carregar músicas:", error);
+      alert("Ocorreu um erro ao buscar as músicas da playlist.");
+    });
+}
+
+
+
+function voltarParaPlaylists() {
+  document.getElementById("musicasDaPlaylist").style.display = "none";
+
+  // Mostrar de volta os outros containers
+  document.getElementById("lista-generos").style.display = "block";
+  document.getElementById("radios-container").style.display = "block";
+
+  // playlistList já está visível, então não precisa mexer
+}
+
 
 
 //carregar conteudo da pagina inicial  
@@ -182,33 +292,56 @@ function mostrarRadiosDoJogo(tituloJogo) {
 
 // Função para voltar à lista de jogos
 function voltar() {
+  document.getElementById("musicasDaPlaylist").style.display = "none";
   document.getElementById("radios-container").style.display = "none";
   document.getElementById("lista-generos").style.display = "block";
+  document.getElementById("playlistList").style.display = "block";
 }
 
 function buscarMusicasDaRadio(nomeRadio) {
   fetch('mocks/musicasdasradios.json')
     .then(res => res.json())
-    .then(dadosMusicas => {
-      const musicas = dadosMusicas[nomeRadio];
+    .then(dadosRadios => {
+      const dadosRadio = dadosRadios[nomeRadio];
 
-      if (!musicas || musicas.length === 0) {
+      if (!dadosRadio || !dadosRadio.musicas || dadosRadio.musicas.length === 0) {
         alert("Nenhuma música encontrada para essa rádio.");
         return;
       }
 
+      const { logo, musicas } = dadosRadio;
+
       const radiosContainer = document.getElementById("radios-container");
       radiosContainer.innerHTML = `
-        <h3>Músicas da rádio: ${nomeRadio}</h3>
-        <ul class="lista-musicas">
+        <div class="jogo-info">
+        <img src="${logo}" alt="Logo da ${nomeRadio}" class="jogo-imagem">
+        <h2>${nomeRadio}</h2>
+        </div>
+        <button class="botaoplay"><img src="botaoplay.png"></button>
+        <div style="display:flex" >
+        <p class="infodomenumusica">Titulo</p>
+        <p class="infodomenumusica2">Lançamento</p>
+        <p class="infodomenumusica3">Duração</p>
+        </div>
+<ul class="lista-radios">
   ${musicas.map(m => `
-    <li class="musica-item">
-      <img src="${m.capa}" alt="Capa de ${m.titulo}" class="capa-musica">
-      <div>
-        <strong>${m.titulo}</strong> — ${m.artista}<br>
-        <small>Lançamento: ${m.dataLancamento} | Duração: ${m.duracao}</small>
+<li>
+  <div class="musicaplaylist">
+    <div class="infomusicaecapa">
+      <img src="${m.capa}" alt="Capa de ${m.titulo}" class="logo-radio">
+      <div class="infodamusica">
+        <p>${m.titulo}</p> 
+        <small>${m.artista}</small>
       </div>
-    </li>
+    </div>
+      <small class="datalmusica">${m.dataLancamento}</small>
+      <div class="duraebot">
+      <small class="daracaomusica">${m.duracao}</small>
+      <button><h3>...</h3></button>
+      </div>
+  </div>
+</li>
+
   `).join("")}
 </ul>
 
@@ -220,3 +353,4 @@ function buscarMusicasDaRadio(nomeRadio) {
       alert("Ocorreu um erro ao buscar as músicas da rádio.");
     });
 }
+

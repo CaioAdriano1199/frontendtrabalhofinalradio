@@ -22,29 +22,38 @@
 <body>
     <nav class="navbar navbar-dark menusup barrnav">
         <div class="logo-elipse">
-            <button style="border: none; background: none; padding: 0;">
+            <button onclick="voltar()" style="border: none; background: none; padding: 0;">
                 <img src="logospot.png" alt="Logo">
             </button>
         </div>
         <input class="form-control mr-sm-2 barrapesquisa" type="search" aria-label="Search">
         <div>
-        <button class="btn btn-light usuarioloff" type="submit"><img src="usuario.png" alt="usuario"></button>
+            <button class="btn btn-light usuarioloff" type="submit"><img src="usuario.png" alt="usuario"></button>
         </div>
     </nav>
     <div style="display: flex;">
-    <div class="menulateral">
-        <div class="orgsubmenu">
-        <h5><b>Sua biblioteca</b></h5>
-        <button class="bcriar" type="submit">+ Criar</button>
+        <div class="menulateral">
+            <div class="orgsubmenu">
+                <h5><b>Sua biblioteca</b></h5>
+                <button id="btnNovaPlaylist" class="bcriar" type="submit">+ Criar</button>
+                <div id="modalNovaPlaylist" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <h2>Nova Playlist</h2>
+                        <input type="text" id="inputNomePlaylist" placeholder="Nome da playlist">
+                        <button id="btnConfirmarPlaylist">Confirmar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="playlist-list" id="playlistList">
+            </div>
         </div>
-          <div class="playlist-list" id="playlistList">
-  </div>
-    </div>
-    <div class="conteudopag">
-        <div id="lista-generos"></div>
-        <div id="radios-container" style="display: none;"></div>
-    </div>
+        <div class="conteudopag">
+            <div id="lista-generos"></div>
+            <div id="radios-container" style="display: none;"></div>
+            <div id="musicasDaPlaylist" style="display: none;"></div>
+        </div>
     </div>
     <script src="logica.js"></script>
 </body>
+
 </html>

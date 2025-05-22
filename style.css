@@ -10,6 +10,9 @@ body {
   margin: 0;
   padding: 0;
   background: linear-gradient(to bottom, var(--cor-elipse), #121212);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
   font-family: 'Inter', sans-serif;
 }
 
@@ -84,8 +87,9 @@ body {
   border-radius: 50%;
   border: none;
 }
+
 .usuarioloff img {
-    width: 100%;
+  width: 100%;
   height: auto;
   object-fit: contain;
 }
@@ -166,15 +170,18 @@ body {
   padding: 10px;
 }
 
-.jogo img{
+.jogo img {
   width: 152px;
   height: 152px;
 }
 
 .jogo p {
-  white-space: nowrap;        /* impede quebra de linha */
-  overflow: hidden;           /* oculta o texto que passa do limite */
-  text-overflow: ellipsis;    /* adiciona "..." no final */
+  white-space: nowrap;
+  /* impede quebra de linha */
+  overflow: hidden;
+  /* oculta o texto que passa do limite */
+  text-overflow: ellipsis;
+  /* adiciona "..." no final */
   max-width: 152px;
   display: block;
 }
@@ -193,8 +200,8 @@ body {
 }
 
 .jogo-imagem {
-  width: 254px;
-  height: 254px;
+  width: 205px;
+  height: 205px;
 
 }
 
@@ -225,11 +232,149 @@ body {
   margin-right: 3%;
 }
 
-.tabelainforadio{
+.tabelainforadio {
   border-bottom: solid white;
   width: 100%;
   margin-top: 10%;
 }
+
+.infodamusica {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.infodamusica p,
+.infodamusica small {
+  margin: 0;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.infomusicaecapa {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 33%;
+}
+
+.musicaplaylist {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: white;
+  gap: 16px;
+}
+
+
+.datalmusica {
+  width: 33%;
+  display: flex;
+}
+
+.daracaomusica {
+  width: 33%;
+  display: flex;
+
+}
+
+.duraebot {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.duraebot button {
+  display: flex;
+  color: white;
+  background-color: transparent;
+  margin-left: 10px;
+  border: none;
+  justify-content: center;
+}
+
+.duraebot h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.botaoplay {
+  margin-top: 5%;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--cor-elipse);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.botaoplay img {
+  margin-left: 5px;
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
+}
+
+.infodomenumusica {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: solid white;
+  width: 33%;
+  margin-top: 5%;
+}
+.infodomenumusica2 {
+  display: flex;
+  justify-content: center;
+  border-bottom: solid white;
+  width: 33%;
+  margin-top: 5%;
+}
+.infodomenumusica3 {
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: solid white;
+  width: 33%;
+  margin-top: 5%;
+  padding-right: 4%;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #383838;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+}
+
 
 .btn-voltar {
   margin-top: 30px;
@@ -246,4 +391,3 @@ body {
 .btn-voltar:hover {
   background-color: #00ccaa;
 }
-
